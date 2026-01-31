@@ -102,12 +102,23 @@ Produto* cadastrarProduto(Produto *lista) {
     scanf("%[^\n]", novo->nomeP);
     printf("\n");
 
-    printf("Digite o preco do produto: ");
-    scanf("%f", &novo->preco);
+    do{
+        printf("Digite o preco do produto: ");
+        scanf("%f", &novo->preco);
+        if (novo->preco<0){
+            printf("preco não pode ser menor que 0, tente novamente:\n");
+        }
+    } while (novo->preco < 0);
     printf("\n");
 
-    printf("Digite a quantidade do produto no estoque: ");
-    scanf("%d", &novo->quantidade);
+    do{
+        printf("Digite a quantidade do produto no estoque: ");
+        scanf("%d", &novo->quantidade);
+        if(novo->quantidade <= 0){
+            printf("qunatidade não pode ser menor ou igual a 0, tente novamente:\n");
+        }
+    } while (novo->quantidade <= 0);
+    
     printf("\n");
 
     novo->prox = lista;
