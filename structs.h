@@ -26,7 +26,7 @@ typedef struct Produto{
 }Produto;
 
 typedef struct ItemNoCarrinho{
-    int coigoUnico;
+    int codigoUnicoCarrinho;
     char nomePC[100];
     float precoPC;
     int quantidade;

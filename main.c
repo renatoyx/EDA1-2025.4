@@ -3,9 +3,11 @@
 
 
 int main(){
-    Cliente *clientes = NULL; 
+    Cliente *clientes = NULL;
+    Produto *produtos = NULL; 
     
     cadastrarCliente(clientes);
-    
+    printf("\n");
+    cadastrarProduto(produtos);
 
 }

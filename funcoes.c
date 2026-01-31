@@ -83,4 +83,31 @@ Cliente* cadastrarCliente(Cliente *lista){
     return novo;
     
 }
-;
+
+//CRUD PRODUTOS
+
+Produto* cadastrarProduto(Produto *lista) {
+    Produto *novo = malloc(sizeof(Produto));
+
+    if (novo == NULL){
+        printf("Memória não alocada.");
+        return lista;
+    }
+
+    printf("Digite o codigo do produto: ");
+    scanf("%s", novo->codigo_unico);
+    printf("\n");
+
+    printf("Digite o nome do produto: ");
+    scanf("%s", novo->nomeP);
+    printf("\n");
+
+    printf("Digite o preco do produto: ");
+    scanf("%f", novo->preco);
+    printf("\n");
+
+    printf("Digite a quantidade do produto no estoque: ");
+    scanf("%d", novo->quantidade);
+    printf("\n");
+
+}
