@@ -101,7 +101,7 @@ Produto* cadastrarProduto(Produto *lista) {
 
     
     char nomeProdutoAux[100]; 
-    printf("Digite seu nome: \n");
+    printf("Digite o nome do produto: \n");
     scanf(" %[^\n]", nomeProdutoAux); 
 
     novo->nomeProduto = malloc(strlen(nomeProdutoAux) + 1);
@@ -156,6 +156,7 @@ void exibirBusca(Produto *lista){
         printf("Digite o codigo: ");
         scanf(" %s", codigoBusca);
         Produto *encontrou = buscarProduto(lista, codigoBusca);
+        printf("%s", encontrou);
 
         if (encontrou != NULL){
             printf("\nProduto Encontrado");
@@ -164,6 +165,6 @@ void exibirBusca(Produto *lista){
             printf("\nPreco: %.2f", encontrou->preco);
             printf("\nEstoque: %d\n", encontrou->quantidade);
         } else{
-            printf("Produto não encontrado.");
+            printf("Produto nao encontrado.");
         }
 }

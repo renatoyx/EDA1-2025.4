@@ -8,6 +8,7 @@ int main(){
     
     cadastrarCliente(clientes);
     printf("\n");
-    cadastrarProduto(produtos);
+    produtos = cadastrarProduto(produtos);
+    exibirBusca(produtos);
 
 }
