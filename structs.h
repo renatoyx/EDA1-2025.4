@@ -18,8 +18,8 @@ typedef struct Cliente{
 }Cliente;
 
 typedef struct Produto{
-    char codigo_unico[10];
-    char nomeP[100];
+    char codigoUnico[10];
+    char *nomeProduto;
     float preco;
     int quantidade;
     struct Produto * prox;

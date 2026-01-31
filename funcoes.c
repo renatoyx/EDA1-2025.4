@@ -86,6 +86,7 @@ Cliente* cadastrarCliente(Cliente *lista){
 
 //CRUD PRODUTOS
 
+//CADASTRO
 Produto* cadastrarProduto(Produto *lista) {
     Produto *novo = malloc(sizeof(Produto));
 
@@ -95,12 +96,22 @@ Produto* cadastrarProduto(Produto *lista) {
     }
 
     printf("Digite o codigo do produto: ");
-    scanf("%s", novo->codigo_unico);
+    scanf("%s", novo->codigoUnico);
     printf("\n");
 
-    printf("Digite o nome do produto: ");
-    scanf("%[^\n]", novo->nomeP);
-    printf("\n");
+    
+    char nomeProdutoAux[100]; 
+    printf("Digite seu nome: \n");
+    scanf(" %[^\n]", nomeProdutoAux); 
+
+    novo->nomeProduto = malloc(strlen(nomeProdutoAux) + 1);
+    if (novo->nomeProduto == NULL) {
+        printf("Erro de memoria!\n");
+        return lista;
+    }
+
+    copiaString(novo->nomeProduto, nomeProdutoAux);
+
 
     do{
         printf("Digite o preco do produto: ");
