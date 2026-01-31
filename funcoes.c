@@ -137,3 +137,33 @@ Produto* cadastrarProduto(Produto *lista) {
     return novo;
 
 }
+
+//BUSCAR
+Produto* buscarProduto(Produto *lista, char codigo[]){
+    Produto *atual = lista;
+    while (atual != NULL){
+        if (strcmp(atual->codigoUnico, codigo) == 0){
+            return atual;
+        }
+        atual = atual -> prox;
+    }
+    return NULL;
+}
+
+void exibirBusca(Produto *lista){
+        char codigoBusca[10];
+
+        printf("Digite o codigo: ");
+        scanf(" %s", codigoBusca);
+        Produto *encontrou = buscarProduto(lista, codigoBusca);
+
+        if (encontrou != NULL){
+            printf("\nProduto Encontrado");
+            printf("\nCodigo: %s", encontrou->codigoUnico);
+            printf("\nNome: %s", encontrou->nomeProduto);
+            printf("\nPreco: %.2f", encontrou->preco);
+            printf("\nEstoque: %d\n", encontrou->quantidade);
+        } else{
+            printf("Produto não encontrado.");
+        }
+}
