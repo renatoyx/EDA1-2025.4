@@ -99,15 +99,19 @@ Produto* cadastrarProduto(Produto *lista) {
     printf("\n");
 
     printf("Digite o nome do produto: ");
-    scanf("%s", novo->nomeP);
+    scanf("%[^\n]", novo->nomeP);
     printf("\n");
 
     printf("Digite o preco do produto: ");
-    scanf("%f", novo->preco);
+    scanf("%f", &novo->preco);
     printf("\n");
 
     printf("Digite a quantidade do produto no estoque: ");
-    scanf("%d", novo->quantidade);
+    scanf("%d", &novo->quantidade);
     printf("\n");
+
+    novo->prox = lista;
+
+    return novo;
 
 }
