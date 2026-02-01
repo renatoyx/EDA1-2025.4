@@ -12,7 +12,8 @@ void liberarClientes(Cliente *lista);
 //CRUD PRODUTOS
 Produto* cadastrarProduto(Produto *lista);
 Produto * buscarProduto(Produto *lista, char codigo[]);
-void exibirBusca(Produto *lista);
+void exibirBuscaPorCodigo(Produto *lista);
+void buscarProdutoPorNome(Produto *lista);
 
 
 

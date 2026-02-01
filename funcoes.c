@@ -138,8 +138,23 @@ Produto* cadastrarProduto(Produto *lista) {
 
 }
 
+//TRANSFORMA STRING EM MINÚSCULO PARA AJUDAR NA BUSCA
+char* transformaMinusculo(char *original){
+    char *copia = (char*) malloc(strlen(original) + 1);
+
+    if (copia == NULL) return NULL;
+
+    int i;
+    for (i = 0; original[i] != '\0'; i++){
+        copia[i] = tolower(original[i]);
+    }
+    copia[i] = '\0';
+
+    return copia;
+}
+
 //BUSCAR
-Produto* buscarProduto(Produto *lista, char codigo[]){
+Produto* buscarProdutoPorCodigo(Produto *lista, char codigo[]){
     Produto *atual = lista;
     while (atual != NULL){
         if (strcmp(atual->codigoUnico, codigo) == 0){
@@ -150,13 +165,12 @@ Produto* buscarProduto(Produto *lista, char codigo[]){
     return NULL;
 }
 
-void exibirBusca(Produto *lista){
+void exibirBuscaPorCodigo(Produto *lista){
         char codigoBusca[10];
 
         printf("Digite o codigo: ");
         scanf(" %s", codigoBusca);
-        Produto *encontrou = buscarProduto(lista, codigoBusca);
-        printf("%s", encontrou);
+        Produto *encontrou = buscarProdutoPorCodigo(lista, codigoBusca);
 
         if (encontrou != NULL){
             printf("\nProduto Encontrado");
@@ -167,4 +181,50 @@ void exibirBusca(Produto *lista){
         } else{
             printf("Produto nao encontrado.");
         }
+}
+
+void buscarProdutoPorNome(Produto* lista){
+    char nomeTemp[100];
+
+    printf("Digite o nome do produto: ");
+    scanf(" %[^\n]", nomeTemp);
+
+    char *buscaNome = (char*) malloc(strlen(nomeTemp) + 1);
+
+    if (buscaNome == NULL){
+        printf("Erro de memoria!\n");
+        return;
+    }
+    copiaString(buscaNome, nomeTemp);
+
+    char *buscaNomeMinusculo = transformaMinusculo(buscaNome);
+
+    Produto* atual = lista;
+    int encontrou = 0;
+
+    printf("Buscando por %s \n", buscaNome);
+    printf("Resultados: \n");
+
+    while (atual != NULL){
+        char *nomeProdutoMinusculo = transformaMinusculo(atual->nomeProduto);
+
+        if(nomeProdutoMinusculo != NULL && strstr(nomeProdutoMinusculo, buscaNomeMinusculo) != NULL){
+
+            printf("Produto: %s \n Preco: R$ %2.f \n", atual->nomeProduto, atual->preco);
+            encontrou = 1;
+        }
+
+        if (nomeProdutoMinusculo != NULL){
+        free(nomeProdutoMinusculo);
+        }
+
+        atual = atual->prox;
+    }
+
+    if(!encontrou){
+        printf("Nenhum produto '%s' encontrado.\n", buscaNome);
+    }
+
+    free(buscaNomeMinusculo);
+    
 }
