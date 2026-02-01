@@ -5,7 +5,6 @@
 #include <ctype.h>
 
 
-//CRUD CLIENTES
 
 //VERIFICA CPF
 int cpfValido(char cpf[]) {
@@ -32,7 +31,9 @@ void copiaString(char *dest, const char *orig) {
     copiaString(dest + 1, orig + 1);
 }
 
+//CRUD CLIENTES
 
+//CADASTRO CLIENTES
 Cliente* cadastrarCliente(Cliente *lista){
     Cliente *novo = malloc(sizeof(Cliente)); 
     if (novo == NULL){
@@ -41,7 +42,7 @@ Cliente* cadastrarCliente(Cliente *lista){
     }
     do {
     printf("Digite o CPF: \n No formato: 12345678912\n"); 
-    scanf(" %s[^\n]", novo->cpf);
+    scanf(" %11s", novo->cpf);
 
     if (!cpfValido(novo->cpf)) {
         printf("CPF invalido! Digite novamente.\n");
@@ -55,6 +56,7 @@ Cliente* cadastrarCliente(Cliente *lista){
     novo->nome = malloc(strlen(nomeAux) + 1);
     if (novo->nome == NULL) {
         printf("Erro de memoria!\n");
+        free(novo);
         return lista;
     }
 
@@ -66,21 +68,46 @@ Cliente* cadastrarCliente(Cliente *lista){
 
     novo->email = malloc(strlen(emailAux) + 1);
     if (novo->email == NULL) {
-        printf("Erro de memoria!\n");
+        printf("Erro de memoria!\n");            
+        free(novo);
         return lista;
     }
 
     copiaString(novo->email, emailAux);
 
-    printf("Digite seu telefone: \n No formato: ddd+numero \n exemplo: 61987654321 \n");
+    printf("Digite seu telefone: \nNo formato: ddd+numero \nexemplo: 61987654321 \n");
     scanf("%s", novo->telefone); 
 
     printf("Data de nascimento (DD MM AAAA): ");
     scanf("%d %d %d",&novo->nascimento.dia,&novo->nascimento.mes,&novo->nascimento.ano);
 
-    printf("%s, %s, %s",novo->cpf, novo->email, novo->nome);
+    printf("%s, %s, %s \n",novo->cpf, novo->email, novo->nome);
     novo->prox = lista;
     return novo;
     
 }
+
+//LISTAR CLIENTES
+
+void listarClientes(Cliente *lista){
+    Cliente *aux = lista;
+
+    while(aux != NULL){
+        printf("%s\n", aux->nome);
+        aux = aux->prox;
+    }
+}
+
+//BUSCAR CLEINTE POR CPF
+
+Cliente* buscarCliente(Cliente *lista, char cpf[]){
+    while(lista){
+        if(strcmp(lista->cpf, cpf) == 0)
+            return lista;
+
+        lista = lista->prox;
+    }
+    return NULL;
+}
+
 ;
