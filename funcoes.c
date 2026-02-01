@@ -305,3 +305,39 @@ void editarProduto(Produto *lista) {
             break;
     }
 }
+
+//REMOVER
+Produto* removerProduto(Produto *lista) {
+    char codigo[10];
+    printf("Digite o codigo do produto para excluir: ");
+    scanf(" %s", codigo);
+
+    Produto *atual = lista;
+    Produto *anterior = NULL;
+
+    while (atual != NULL && strcmp(atual->codigoUnico, codigo) != 0) {
+        anterior = atual;
+        atual = atual->prox;
+    }
+
+    if (atual == NULL) {
+        printf("Produto nao encontrado para remocao.\n");
+        return lista;
+    }
+
+    if (anterior == NULL) {
+        lista = atual->prox;
+    } else {
+        anterior->prox = atual->prox;
+    }
+
+    if (atual->nomeProduto != NULL) {
+        free(atual->nomeProduto);
+    }
+    
+    free(atual);
+
+    printf("Produto removido com sucesso!\n");
+    
+    return lista;
+}
