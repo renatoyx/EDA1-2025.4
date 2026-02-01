@@ -8,10 +8,8 @@ int main(){
     
     produtos = cadastrarProduto(produtos);
     produtos = cadastrarProduto(produtos);
-    produtos = cadastrarProduto(produtos);
-    exibirBuscaPorCodigo(produtos);
-    exibirBuscaPorCodigo(produtos);
     exibirBuscaPorCodigo(produtos);
     buscarProdutoPorNome(produtos);
+    editarProduto(produtos);
 
 }

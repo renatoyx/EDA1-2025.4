@@ -228,3 +228,80 @@ void buscarProdutoPorNome(Produto* lista){
     free(buscaNomeMinusculo);
     
 }
+
+//EDITAR
+void editarProduto(Produto *lista) {
+    char codigo[10];
+
+    printf("Digite o codigo do produto que deseja alterar: ");
+    scanf(" %s", codigo);
+
+    Produto *encontrado = buscarProdutoPorCodigo(lista, codigo);
+
+    if (encontrado == NULL) {
+        printf("Erro: Produto com codigo '%s' nao encontrado.\n", codigo);
+        return;
+    }
+
+    printf("\nDados Atuais:\n");
+    printf("Nome: %s | Preco: %.2f | Estoque: %d\n", 
+           encontrado->nomeProduto, encontrado->preco, encontrado->quantidade);
+
+    int opcao;
+    printf("\nO que deseja alterar?\n");
+    printf("1. Nome\n");
+    printf("2. Preco\n");
+    printf("3. Estoque (Quantidade)\n");
+    printf("4. Cancelar\n");
+    printf("Escolha: ");
+    scanf("%d", &opcao);
+
+    switch (opcao) {
+        case 1: {
+            char nomeNovo;
+            do {
+                printf("Digite o novo preco: ");
+                scanf("%f", &nomeNovo);
+                if(nomeNovo < 0) printf("Preco invalido.\n");
+            } while(nomeNovo < 0);
+            
+            encontrado->nomeProduto = nomeNovo;
+            printf("Preco atualizado.\n");
+            break;
+        }
+
+        case 2: {
+            float precoNovo;
+            do {
+                printf("Digite o novo preco: ");
+                scanf("%f", &precoNovo);
+                if(precoNovo < 0) printf("Preco invalido.\n");
+            } while(precoNovo < 0);
+            
+            encontrado->preco = precoNovo;
+            printf("Preco atualizado.\n");
+            break;
+        }
+
+        case 3: {
+            int estoqueNovo;
+            do {
+                printf("Digite a nova quantidade: ");
+                scanf("%d", &estoqueNovo);
+                if(estoqueNovo <= 0) printf("Quantidade invalida.\n");
+            } while(estoqueNovo <= 0);
+
+            encontrado->quantidade = estoqueNovo;
+            printf("Estoque atualizado.\n");
+            break;
+        }
+
+        case 4:
+            printf("Operacao cancelada.\n");
+            break;
+
+        default:
+            printf("Opcao invalida.\n");
+            break;
+    }
+}
