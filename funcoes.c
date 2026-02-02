@@ -205,13 +205,40 @@ Cliente* editarCliente(Cliente *lista, char cpf[]){
 // CRUD PRODUTOS
 //////////////////////////////////////////////////
 
+
+Produto* buscarProdutoPorCodigo(Produto *lista, char codigo[]){
+
+    while(lista){
+        if(strcmp(lista->codigoUnico, codigo) == 0)
+            return lista;
+
+        lista = lista->prox;
+    }
+
+    return NULL;
+}
+
+//////////////////////////////////////////////////
+
 Produto* cadastrarProduto(Produto *lista){
 
     Produto *novo = malloc(sizeof(Produto));
     if(!novo) return lista;
 
-    printf("Codigo do produto: ");
-    scanf(" %s", novo->codigoUnico);
+
+    int codigoJaExiste = 0;
+    do{
+        printf("Codigo do produto: ");
+        scanf(" %s", novo->codigoUnico);
+        
+        if(buscarProdutoPorCodigo(lista, novo->codigoUnico) != NULL){
+            printf("Produto com esse código já existe. Tente novamente");
+            codigoJaExiste = 1;
+        } else{
+            codigoJaExiste = 0;
+        }
+    } while (codigoJaExiste);
+    
 
     char nomeAux[100];
     printf("Nome do produto: ");
@@ -232,20 +259,6 @@ Produto* cadastrarProduto(Produto *lista){
 
     novo->prox = lista;
     return novo;
-}
-
-//////////////////////////////////////////////////
-
-Produto* buscarProdutoPorCodigo(Produto *lista, char codigo[]){
-
-    while(lista){
-        if(strcmp(lista->codigoUnico, codigo) == 0)
-            return lista;
-
-        lista = lista->prox;
-    }
-
-    return NULL;
 }
 
 //////////////////////////////////////////////////

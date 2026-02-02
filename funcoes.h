@@ -14,7 +14,7 @@ void imprimirCliente(Cliente *cliente);
 
 //CRUD PRODUTOS
 Produto* cadastrarProduto(Produto *lista);
-Produto * buscarProduto(Produto *lista, char codigo[]);
+Produto * buscarProdutoPorCodigo(Produto *lista, char codigo[]);
 void exibirBuscaPorCodigo(Produto *lista);
 void buscarProdutoPorNome(Produto *lista);
 void editarProduto(Produto *lista);
