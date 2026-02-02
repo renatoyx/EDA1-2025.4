@@ -12,6 +12,14 @@ void listarClientes(Cliente *lista);
 Cliente* buscarCliente(Cliente *lista, char cpf[]);
 void imprimirCliente(Cliente *cliente);
 
+//CRUD PRODUTOS
+Produto* cadastrarProduto(Produto *lista);
+Produto * buscarProduto(Produto *lista, char codigo[]);
+void exibirBuscaPorCodigo(Produto *lista);
+void buscarProdutoPorNome(Produto *lista);
+void editarProduto(Produto *lista);
+Produto* removerProduto(Produto *lista);
+
 
 
 #endif
