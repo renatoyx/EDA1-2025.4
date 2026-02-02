@@ -110,4 +110,99 @@ Cliente* buscarCliente(Cliente *lista, char cpf[]){
     return NULL;
 }
 
+//imprimirCliente
+
+void imprimirCliente(Cliente *cliente){
+   if(cliente == NULL){
+        printf("Cliente nao encontrado.\n");
+        return;
+    }
+
+    printf("Dados do Cliente\n"); 
+    printf("--------------------------\n");
+    printf("Nome: %s\n", cliente->nome); 
+    printf("CPF: %s \n",cliente->cpf);
+    printf("Data de nascimento: %d/%d/%d\n", cliente->nascimento.dia, cliente->nascimento.mes, cliente->nascimento.ano); 
+    printf("Email: %s\n", cliente->email);
+}
+
+//EDITAR CLIENTE
+
+Cliente* editarCliente(Cliente *lista, char cpf[]){
+    
+    Cliente *cliente = buscarCliente(lista, cpf);
+
+    if(cliente == NULL){
+        printf("Cliente nao encontrado.\n");
+        return lista;
+    }
+
+    int opcao;
+
+    do{
+        printf("------- CLIENTE -------\n"); 
+        imprimirCliente(cliente);
+
+        printf("1 - Nome\n");
+        printf("2 - Email\n");
+        printf("3 - Telefone\n");
+        printf("4 - Data de nascimento\n");
+        printf("0 - Sair\n");
+        printf("Escolha: \n");
+        scanf("%d", &opcao);
+
+        switch(opcao){
+
+            case 1: {
+                char nomeAux[100];
+
+                printf("Novo nome: ");
+                scanf(" %[^\n]", nomeAux);
+
+                char *temp = realloc(cliente->nome, strlen(nomeAux)+1);
+
+                if(!temp){
+                    printf("Erro de memoria.\n");
+                    break;
+                }
+
+                cliente->nome = temp;
+                copiaString(cliente->nome, nomeAux);
+                break;
+            }
+
+            case 2: {
+                char emailAux[100];
+
+                printf("Novo email: ");
+                scanf(" %[^\n]", emailAux);
+
+                char *temp2 = realloc(cliente->email, strlen(emailAux)+1);
+
+                if(!temp2){
+                    printf("Erro de memoria.\n");
+                    break;
+                }
+
+                cliente->email = temp2;
+                copiaString(cliente->email, emailAux);
+                break;
+            }
+
+            case 3:
+                printf("Novo telefone: ");
+                scanf(" %11s", cliente->telefone);
+                break;
+
+            case 4:
+                printf("Nova data (DD MM AAAA): ");
+                scanf("%d %d %d",&cliente->nascimento.dia,&cliente->nascimento.mes,&cliente->nascimento.ano);
+                break;
+        }
+
+    }while(opcao != 0);
+
+    return lista;
+}
+
 ;

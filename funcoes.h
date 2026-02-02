@@ -10,6 +10,7 @@ Cliente* removerCliente(Cliente *lista, char cpf[]);
 void liberarClientes(Cliente *lista);
 void listarClientes(Cliente *lista);
 Cliente* buscarCliente(Cliente *lista, char cpf[]);
+void imprimirCliente(Cliente *cliente);
 
 
 
