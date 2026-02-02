@@ -14,6 +14,7 @@ typedef struct Cliente{
     char *email;
     char telefone[11];
     Data nascimento;
+    struct ItemNoCarrinho *carrinho;
     struct Cliente * prox;
 }Cliente;
 
