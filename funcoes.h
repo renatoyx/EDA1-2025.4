@@ -19,7 +19,7 @@ void exibirBuscaPorCodigo(Produto *lista);
 void buscarProdutoPorNome(Produto *lista);
 void editarProduto(Produto *lista);
 Produto* removerProduto(Produto *lista);
-
+void liberarProdutos(Produto *lista); 
 
 
 #endif
