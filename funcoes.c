@@ -487,3 +487,36 @@ void liberarProdutos(Produto *lista){
 
     printf("Memoria dos produtos liberada.\n");
 }
+
+//////////////////////////////////////////////////
+// MODO COMPRA
+//////////////////////////////////////////////////
+
+void chamarModoCompra(Cliente *clientes, Produto *produtos){
+
+    char cpf[12];
+
+    printf("------- MODO COMPRA ------- \n");
+    printf("Digite o CPF do cliente: \n");
+    scanf(" %11s", cpf);
+
+    Cliente *cliente = buscarCliente(clientes, cpf);
+
+    if(!cliente){
+        printf("Cliente nao encontrado. Cadastre o cliente antes de comprar.\n");
+        return;
+    }
+
+    printf("Cliente validado com sucesso!\n");
+    imprimirCliente(cliente);
+
+    printf("Entrando no modo compra...\n");
+
+    modoCompra(cliente, produtos);
+}
+
+
+
+void modoCompra(Cliente *cliente, Produto *produtos){
+
+}
