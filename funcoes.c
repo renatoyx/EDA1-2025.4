@@ -8,15 +8,15 @@
 // FUNÇÕES AUXILIARES
 ////////////////////////////////////////////////
 
-int cpfValido(char cpf[]) {
+int validarDigitos(char vetorDigito[]) {
     int i, cont = 0;
 
-    for (i = 0; cpf[i] != '\0'; i++) {
-        if (isdigit((unsigned char)cpf[i])) cont++;
+    for (i = 0; vetorDigito[i] != '\0'; i++) {
+        if (isdigit((unsigned char)vetorDigito[i])) cont++;
         else return 0;
     }
 
-    return cont == 11;
+    return 1;
 }
 
 void copiaString(char *dest, const char *orig) {
@@ -55,18 +55,19 @@ Cliente* cadastrarCliente(Cliente *lista){
     }
 
     char controleDeCPF[50];
-    int valido = 0;
+    int cpfValido = 0;
     do{
         printf("Digite o CPF (11 digitos): ");
         scanf(" %s", controleDeCPF);
-
-        if (!cpfValido(controleDeCPF)){
+        int tamanhoCpf = strlen(controleDeCPF);
+        if(tamanhoCpf != 11 || !validarDigitos(controleDeCPF)){
             printf("CPF invalido!\n");
-        }else{
+            cpfValido = 0;
+        } else{
             copiaString(novo->cpf, controleDeCPF);
+            cpfValido = 1;
         }
-
-    }while(!cpfValido(controleDeCPF));
+    }while(cpfValido == 0);
 
     char nomeAux[100];
     printf("Nome: ");
@@ -82,8 +83,27 @@ Cliente* cadastrarCliente(Cliente *lista){
     novo->email = malloc(strlen(emailAux)+1);
     copiaString(novo->email, emailAux);
 
-    printf("Telefone (DDD+numero): ");
-    scanf(" %11s", novo->telefone);
+    char controleNumeroDeTelefone[50];
+    int telefoneValido = 0;
+    do{
+        printf("Telefone (Apenas numeros com DDD). Ex: 61998765432: ");
+        scanf(" %s", controleNumeroDeTelefone);
+
+        int tamanhodoTelefoneDigitado = strlen(controleNumeroDeTelefone);
+
+        if(!validarDigitos(controleNumeroDeTelefone)){
+            printf("Telefone nao contem digitos!\n");
+            if(tamanhodoTelefoneDigitado < 10 || tamanhodoTelefoneDigitado > 11){
+                printf("Tamanho do telefone inválido!\n");
+                telefoneValido = 0;
+            } else{
+                telefoneValido = 1;
+            }
+        }
+        
+    }while(!telefoneValido && !validarDigitos(controleNumeroDeTelefone));
+    
+    
 
     printf("Nascimento (DD MM AAAA): ");
     scanf("%d %d %d",
