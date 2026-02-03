@@ -4,9 +4,9 @@
 #include <ctype.h>
 #include "funcoes.h"
 
-//////////////////////////////////////////////////
+////////////////////////////////////////////////////
 // FUNÇÕES AUXILIARES
-//////////////////////////////////////////////////
+////////////////////////////////////////////////
 
 int cpfValido(char cpf[]) {
     int i, cont = 0;
@@ -202,6 +202,67 @@ Cliente* editarCliente(Cliente *lista, char cpf[]){
 }
 
 //////////////////////////////////////////////////
+
+Cliente* removerCliente(Cliente *lista){
+
+    char cpf[12];
+    printf("CPF para remover: ");
+    scanf(" %11s", cpf);
+
+    Cliente *remover = buscarCliente(lista, cpf);
+
+    if(!remover){
+        printf("Cliente nao encontrado.\n");
+        return lista;
+    }
+
+    Cliente *atual = lista;
+    Cliente *anterior = NULL;
+
+    while(atual != remover){
+        anterior = atual;
+        atual = atual->prox;
+    }
+
+    if(!anterior){
+        lista = atual->prox;
+    }
+    else{
+        anterior->prox = atual->prox;
+    }
+
+    free(atual->nome);
+    free(atual->email);
+    free(atual);
+
+    printf("Cliente removido com sucesso!\n");
+
+    return lista;
+}
+
+
+//////////////////////////////////////////////////
+
+void liberarClientes(Cliente *lista){
+
+    Cliente *temp;
+
+    while(lista){
+
+        temp = lista;
+        lista = lista->prox;
+
+        free(temp->nome);
+        free(temp->email);
+        free(temp);
+    }
+
+    printf("Memoria dos clientes liberada.\n");
+}
+
+
+
+//////////////////////////////////////////////////
 // CRUD PRODUTOS
 //////////////////////////////////////////////////
 
@@ -388,4 +449,22 @@ Produto* removerProduto(Produto *lista){
     printf("Produto removido!\n");
 
     return lista;
+}
+
+//////////////////////////////////////////////////
+
+void liberarProdutos(Produto *lista){
+
+    Produto *temp;
+
+    while(lista){
+
+        temp = lista;
+        lista = lista->prox;
+
+        free(temp->nomeProduto);
+        free(temp);
+    }
+
+    printf("Memoria dos produtos liberada.\n");
 }
