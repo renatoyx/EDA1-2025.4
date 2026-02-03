@@ -88,20 +88,15 @@ Cliente* cadastrarCliente(Cliente *lista){
     do{
         printf("Telefone (Apenas numeros com DDD). Ex: 61998765432: ");
         scanf(" %s", controleNumeroDeTelefone);
-
-        int tamanhodoTelefoneDigitado = strlen(controleNumeroDeTelefone);
-
-        if(!validarDigitos(controleNumeroDeTelefone)){
-            printf("Telefone nao contem digitos!\n");
-            if(tamanhodoTelefoneDigitado < 10 || tamanhodoTelefoneDigitado > 11){
-                printf("Tamanho do telefone inválido!\n");
-                telefoneValido = 0;
-            } else{
-                telefoneValido = 1;
-            }
+        int tamanhoTelefoneDigitado = strlen(controleNumeroDeTelefone);
+        if(tamanhoTelefoneDigitado > 11 || tamanhoTelefoneDigitado < 10 || !validarDigitos(controleNumeroDeTelefone)){
+            printf("Telefone invalido!\n");
+            telefoneValido = 0;
+        } else{
+            copiaString(novo->telefone, controleNumeroDeTelefone);
+            telefoneValido = 1;
         }
-        
-    }while(!telefoneValido && !validarDigitos(controleNumeroDeTelefone));
+    }while(telefoneValido == 0);
     
     
 
