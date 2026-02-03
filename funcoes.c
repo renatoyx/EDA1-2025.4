@@ -54,14 +54,19 @@ Cliente* cadastrarCliente(Cliente *lista){
         return lista;
     }
 
+    char controleDeCPF[50];
+    int valido = 0;
     do{
         printf("Digite o CPF (11 digitos): ");
-        scanf(" %11s", novo->cpf);
+        scanf(" %s", controleDeCPF);
 
-        if (!cpfValido(novo->cpf))
+        if (!cpfValido(controleDeCPF)){
             printf("CPF invalido!\n");
+        }else{
+            copiaString(novo->cpf, controleDeCPF);
+        }
 
-    }while(!cpfValido(novo->cpf));
+    }while(!cpfValido(controleDeCPF));
 
     char nomeAux[100];
     printf("Nome: ");
@@ -203,9 +208,8 @@ Cliente* editarCliente(Cliente *lista, char cpf[]){
 
 //////////////////////////////////////////////////
 
-Cliente* removerCliente(Cliente *lista){
+Cliente* removerCliente(Cliente *lista, char cpf[]){
 
-    char cpf[12];
     printf("CPF para remover: ");
     scanf(" %11s", cpf);
 
