@@ -4,19 +4,19 @@
 #include <ctype.h>
 #include "funcoes.h"
 
-//////////////////////////////////////////////////
+////////////////////////////////////////////////////
 // FUNÇÕES AUXILIARES
-//////////////////////////////////////////////////
+////////////////////////////////////////////////
 
-int cpfValido(char cpf[]) {
+int validarDigitos(char vetorDigito[]) {
     int i, cont = 0;
 
-    for (i = 0; cpf[i] != '\0'; i++) {
-        if (isdigit((unsigned char)cpf[i])) cont++;
+    for (i = 0; vetorDigito[i] != '\0'; i++) {
+        if (isdigit((unsigned char)vetorDigito[i])) cont++;
         else return 0;
     }
 
-    return cont == 11;
+    return 1;
 }
 
 void copiaString(char *dest, const char *orig) {
@@ -54,14 +54,20 @@ Cliente* cadastrarCliente(Cliente *lista){
         return lista;
     }
 
+    char controleDeCPF[50];
+    int cpfValido = 0;
     do{
         printf("Digite o CPF (11 digitos): ");
-        scanf(" %11s", novo->cpf);
-
-        if (!cpfValido(novo->cpf))
+        scanf(" %s", controleDeCPF);
+        int tamanhoCpf = strlen(controleDeCPF);
+        if(tamanhoCpf != 11 || !validarDigitos(controleDeCPF)){
             printf("CPF invalido!\n");
-
-    }while(!cpfValido(novo->cpf));
+            cpfValido = 0;
+        } else{
+            copiaString(novo->cpf, controleDeCPF);
+            cpfValido = 1;
+        }
+    }while(cpfValido == 0);
 
     char nomeAux[100];
     printf("Nome: ");
@@ -77,8 +83,22 @@ Cliente* cadastrarCliente(Cliente *lista){
     novo->email = malloc(strlen(emailAux)+1);
     copiaString(novo->email, emailAux);
 
-    printf("Telefone (DDD+numero): ");
-    scanf(" %11s", novo->telefone);
+    char controleNumeroDeTelefone[50];
+    int telefoneValido = 0;
+    do{
+        printf("Telefone (Apenas numeros com DDD). Ex: 61998765432: ");
+        scanf(" %s", controleNumeroDeTelefone);
+        int tamanhoTelefoneDigitado = strlen(controleNumeroDeTelefone);
+        if(tamanhoTelefoneDigitado > 11 || tamanhoTelefoneDigitado < 10 || !validarDigitos(controleNumeroDeTelefone)){
+            printf("Telefone invalido!\n");
+            telefoneValido = 0;
+        } else{
+            copiaString(novo->telefone, controleNumeroDeTelefone);
+            telefoneValido = 1;
+        }
+    }while(telefoneValido == 0);
+    
+    
 
     printf("Nascimento (DD MM AAAA): ");
     scanf("%d %d %d",
@@ -202,7 +222,82 @@ Cliente* editarCliente(Cliente *lista, char cpf[]){
 }
 
 //////////////////////////////////////////////////
+
+Cliente* removerCliente(Cliente *lista, char cpf[]){
+
+    printf("CPF para remover: ");
+    scanf(" %11s", cpf);
+
+    Cliente *remover = buscarCliente(lista, cpf);
+
+    if(!remover){
+        printf("Cliente nao encontrado.\n");
+        return lista;
+    }
+
+    Cliente *atual = lista;
+    Cliente *anterior = NULL;
+
+    while(atual != remover){
+        anterior = atual;
+        atual = atual->prox;
+    }
+
+    if(!anterior){
+        lista = atual->prox;
+    }
+    else{
+        anterior->prox = atual->prox;
+    }
+
+    free(atual->nome);
+    free(atual->email);
+    free(atual);
+
+    printf("Cliente removido com sucesso!\n");
+
+    return lista;
+}
+
+
+//////////////////////////////////////////////////
+
+void liberarClientes(Cliente *lista){
+
+    Cliente *temp;
+
+    while(lista){
+
+        temp = lista;
+        lista = lista->prox;
+
+        free(temp->nome);
+        free(temp->email);
+        free(temp);
+    }
+
+    printf("Memoria dos clientes liberada.\n");
+}
+
+
+
+//////////////////////////////////////////////////
 // CRUD PRODUTOS
+//////////////////////////////////////////////////
+
+
+Produto* buscarProdutoPorCodigo(Produto *lista, char codigo[]){
+
+    while(lista){
+        if(strcmp(lista->codigoUnico, codigo) == 0)
+            return lista;
+
+        lista = lista->prox;
+    }
+
+    return NULL;
+}
+
 //////////////////////////////////////////////////
 
 Produto* cadastrarProduto(Produto *lista){
@@ -210,8 +305,20 @@ Produto* cadastrarProduto(Produto *lista){
     Produto *novo = malloc(sizeof(Produto));
     if(!novo) return lista;
 
-    printf("Codigo do produto: ");
-    scanf(" %s", novo->codigoUnico);
+
+    int codigoJaExiste = 0;
+    do{
+        printf("Codigo do produto: ");
+        scanf(" %s", novo->codigoUnico);
+        
+        if(buscarProdutoPorCodigo(lista, novo->codigoUnico) != NULL){
+            printf("Produto com esse código já existe. Tente novamente");
+            codigoJaExiste = 1;
+        } else{
+            codigoJaExiste = 0;
+        }
+    } while (codigoJaExiste);
+    
 
     char nomeAux[100];
     printf("Nome do produto: ");
@@ -232,20 +339,6 @@ Produto* cadastrarProduto(Produto *lista){
 
     novo->prox = lista;
     return novo;
-}
-
-//////////////////////////////////////////////////
-
-Produto* buscarProdutoPorCodigo(Produto *lista, char codigo[]){
-
-    while(lista){
-        if(strcmp(lista->codigoUnico, codigo) == 0)
-            return lista;
-
-        lista = lista->prox;
-    }
-
-    return NULL;
 }
 
 //////////////////////////////////////////////////
@@ -375,4 +468,22 @@ Produto* removerProduto(Produto *lista){
     printf("Produto removido!\n");
 
     return lista;
+}
+
+//////////////////////////////////////////////////
+
+void liberarProdutos(Produto *lista){
+
+    Produto *temp;
+
+    while(lista){
+
+        temp = lista;
+        lista = lista->prox;
+
+        free(temp->nomeProduto);
+        free(temp);
+    }
+
+    printf("Memoria dos produtos liberada.\n");
 }

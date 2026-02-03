@@ -12,7 +12,7 @@ typedef struct Cliente{
     char cpf[12];
     char *nome;
     char *email;
-    char telefone[11];
+    char telefone[12];
     Data nascimento;
     struct ItemNoCarrinho *carrinho;
     struct Cliente * prox;
