@@ -1,66 +1,63 @@
 #include <stdio.h>
 #include "funcoes.h"
-#include <conio.h>
 
 int main(){
 
     Cliente *clientes = NULL;
     Produto *produtos = NULL;
 
-    printf("\n========== TESTE CLIENTES ==========\n");
+    int opcao;
 
-    // CADASTRAR CLIENTES
-    clientes = cadastrarCliente(clientes);
-    clientes = cadastrarCliente(clientes);
+    do{
 
-    printf("\n--- LISTANDO CLIENTES ---\n");
-    listarClientes(clientes);
+        printf("\n========== SISTEMA ==========\n");
+        printf("1 - Cadastrar cliente\n");
+        printf("2 - Listar clientes\n");
 
-    // BUSCAR CLIENTE
-    char cpf[12];
-    printf("\nDigite um CPF para buscar: ");
-    scanf(" %11s", cpf);
+        printf("3 - Cadastrar produto\n");
+        printf("4 - Buscar produto por codigo\n");
 
-    Cliente *c = buscarCliente(clientes, cpf);
+        printf("5 - Entrar no modo compra\n");
 
-    if(c){
-        printf("\nCliente encontrado:\n");
-        imprimirCliente(c);
-    }
-    else{
-        printf("Cliente nao encontrado.\n");
-    }
+        printf("0 - Sair\n");
 
-    // EDITAR CLIENTE
-    printf("\nDigite um CPF para editar: ");
-    scanf(" %11s", cpf);
+        printf("Escolha: ");
+        scanf("%d", &opcao);
 
-    clientes = editarCliente(clientes, cpf);
+        switch(opcao){
 
-    printf("\n--- CLIENTES APOS EDICAO ---\n");
-    listarClientes(clientes);
+            case 1:
+                clientes = cadastrarCliente(clientes);
+                break;
 
+            case 2:
+                listarClientes(clientes);
+                break;
 
+            case 3:
+                produtos = cadastrarProduto(produtos);
+                break;
 
-    printf("\n\n========== TESTE PRODUTOS ==========\n");
+            case 4:
+                exibirBuscaPorCodigo(produtos);
+                break;
 
-    // CADASTRAR PRODUTOS
-    produtos = cadastrarProduto(produtos);
-    produtos = cadastrarProduto(produtos);
+            case 5:
+                chamarModoCompra(clientes, produtos);
+                break;
 
-    // BUSCAR PRODUTO
-    exibirBuscaPorCodigo(produtos);
+            case 0:
+                printf("Encerrando sistema...\n");
+                break;
 
-    // BUSCAR POR NOME
-    buscarProdutoPorNome(produtos);
+            default:
+                printf("Opcao invalida.\n");
+        }
 
-    // EDITAR PRODUTO
-    editarProduto(produtos);
+    }while(opcao != 0);
 
-    // REMOVER PRODUTO
-    produtos = removerProduto(produtos);
-
-    printf("\nTeste finalizado.\n");
-
+    liberarClientes(clientes);
+    liberarProdutos(produtos);
+    
     return 0;
 }

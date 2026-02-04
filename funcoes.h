@@ -21,8 +21,15 @@ void editarProduto(Produto *lista);
 Produto* removerProduto(Produto *lista);
 void liberarProdutos(Produto *lista); 
 
-//CARRINHO
-ItemNoCarrinho* adicionarItemNoCarrinho(Cliente *listaCliente, Produto *listaProduto);
 
+// MODO COMPRA
+
+
+void chamarModoCompra(Cliente *clientes, Produto *produtos);
+void modoCompra(Cliente *cliente, Produto *produtos);
+void adicionarItemNoCarrinho(Cliente *cliente, Produto *produtos);
+void removerItemDoCarrinho(Cliente *cliente);
+void listarCarrinho(Cliente *cliente);
+void liberarCarrinho(ItemNoCarrinho *carrinho);
 
 #endif
