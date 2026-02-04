@@ -522,7 +522,7 @@ void chamarModoCompra(Cliente *clientes, Produto *produtos){
     modoCompra(cliente, produtos);
 }
 
-ItemNoCarrinho* adicionarItemNoCarrinho(Cliente *listaCliente,Produto *listaProduto){
+void adicionarItemNoCarrinho(Cliente *listaCliente,Produto *listaProduto){
     buscarProdutoPorNome(listaProduto);
     char codigoDigitado[50];
     Produto *produtoSelecionado = NULL;
