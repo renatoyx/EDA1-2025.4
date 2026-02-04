@@ -21,5 +21,8 @@ void editarProduto(Produto *lista);
 Produto* removerProduto(Produto *lista);
 void liberarProdutos(Produto *lista); 
 
+//CARRINHO
+ItemNoCarrinho* adicionarItemNoCarrinho(Cliente *listaCliente, Produto *listaProduto);
+
 
 #endif

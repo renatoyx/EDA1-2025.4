@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "funcoes.h"
+#include <conio.h>
 
 int main(){
 

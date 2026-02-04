@@ -19,7 +19,7 @@ typedef struct Cliente{
 }Cliente;
 
 typedef struct Produto{
-    char codigoUnico[10];
+    char codigoUnico[50];
     char *nomeProduto;
     float preco;
     int quantidade;
@@ -27,9 +27,9 @@ typedef struct Produto{
 }Produto;
 
 typedef struct ItemNoCarrinho{
-    int codigoUnicoCarrinho;
-    char nomePC[100];
-    float precoPC;
+    char codigoUnicoCarrinho[50];
+    char *nomeDoProdutoNoCarrinho;
+    float precoProdutoNoCarrinho;
     int quantidade;
     struct ItemNoCarrinho * prox;   
 }ItemNoCarrinho;

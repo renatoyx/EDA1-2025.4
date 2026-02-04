@@ -303,8 +303,10 @@ Produto* buscarProdutoPorCodigo(Produto *lista, char codigo[]){
 Produto* cadastrarProduto(Produto *lista){
 
     Produto *novo = malloc(sizeof(Produto));
-    if(!novo) return lista;
-
+    if(!novo){
+        printf("Erro de memoria!\n");
+        return lista;
+    }
 
     int codigoJaExiste = 0;
     do{
@@ -365,7 +367,7 @@ void exibirBuscaPorCodigo(Produto *lista){
 void buscarProdutoPorNome(Produto* lista){
 
     char nome[100];
-    printf("Nome do produto: ");
+    printf("DIgite o nome do produto para buscar: ");
     scanf(" %[^\n]", nome);
 
     char *busca = transformaMinusculo(nome);
@@ -375,10 +377,15 @@ void buscarProdutoPorNome(Produto* lista){
     while(lista){
 
         char *temp = transformaMinusculo(lista->nomeProduto);
-
+        //Revisar para adaptar a tela
+        printf("///////////////////////////////\n");
+        printf("//     RESULTADO DA BUSCA    //");
+        printf("///////////////////////////////\n");
         if(temp && strstr(temp, busca)){
-            printf("%s - R$ %.2f\n",
-                lista->nomeProduto, lista->preco);
+            printf("-------------------------------\n");
+            printf("|  CODIGO  |  NOME  |  PRECO  |\n");
+            printf("|  %s      |  %s    | R$ %.2f |\n",lista->codigoUnico,lista->nomeProduto, lista->preco);
+            printf("-------------------------------\n");
             achou = 1;
         }
 
@@ -515,8 +522,88 @@ void chamarModoCompra(Cliente *clientes, Produto *produtos){
     modoCompra(cliente, produtos);
 }
 
+ItemNoCarrinho* adicionarItemNoCarrinho(Cliente *listaCliente,Produto *listaProduto){
+    buscarProdutoPorNome(listaProduto);
+    char codigoDigitado[50];
+    Produto *produtoSelecionado = NULL;
+    int tentarNovamente = 1;
+    
+    while (tentarNovamente == 1 && produtoSelecionado == NULL){
+
+        printf("Digite o codigo do produto que quer adicionar ao carrinho: ");
+        scanf(" %[^\n]", &codigoDigitado);
+
+        produtoSelecionado = buscarProdutoPorCodigo(listaProduto, codigoDigitado);
+        if (produtoSelecionado == NULL){
+            printf("Codigo errado ou produto nao encontrado.\n");
+            printf("tentar novamente?\n");
+            printf("1. Sim\n");
+            printf("2. Nao (voltar pra tela de inicio)\n");
+            printf("Selecione uma das opcoes acima: ");
+            scanf("%d", &tentarNovamente);
+
+            if(tentarNovamente < 1 || tentarNovamente > 2){
+                printf("Opcao invalida. Tente novamente.\n");
+                tentarNovamente = 0;
+            }
+        }
+    }
+    if(produtoSelecionado == NULL) return;
+
+    int quantidadeSelecionada;
+    do{
+        printf("Quantidade em estoque: %d", produtoSelecionado->quantidade);
+        printf("Quantas unidade de '%s'?", produtoSelecionado->nomeProduto);
+        scanf("%d", &quantidadeSelecionada);
+
+        if (quantidadeSelecionada > produtoSelecionado->quantidade || quantidadeSelecionada <= 0){
+            printf("Estoque insuficiente ou quantidade digitada errada. Tente novamente\n\n");
+        }
+    }while(quantidadeSelecionada > produtoSelecionado->quantidade || quantidadeSelecionada <= 0);
+
+    ItemNoCarrinho *itemAdicionado = malloc(sizeof(ItemNoCarrinho));
+    if(!itemAdicionado){
+        printf("Erro de memoria!\n");
+        return;
+    }
+
+    copiaString(itemAdicionado->codigoUnicoCarrinho, produtoSelecionado->codigoUnico);
+
+    itemAdicionado->nomeDoProdutoNoCarrinho = malloc(strlen(produtoSelecionado->nomeProduto) + 1);
+    copiaString(itemAdicionado->nomeDoProdutoNoCarrinho, produtoSelecionado->nomeProduto);
+
+    itemAdicionado->precoProdutoNoCarrinho = produtoSelecionado->preco;
+
+    itemAdicionado->quantidade = quantidadeSelecionada;
+
+    itemAdicionado->prox = listaCliente->carrinho;
+    listaCliente->carrinho = itemAdicionado;
+
+    produtoSelecionado->quantidade = produtoSelecionado->quantidade - quantidadeSelecionada;
+
+}
+
 
 
 void modoCompra(Cliente *cliente, Produto *produtos){
+    int opcao = 0;
+    printf("MODO COMPRA\n \n");
+    printf("1. Adicionar item ao carrinho\n");
+    printf("2. Listar itens no carrinho\n");
+    printf("3. Excluir item no carrinho\n\n");
+    scanf("Selecione uma opcao: %d", &opcao);
+    do{
+        if (opcao < 0 || opcao > 3){
+            printf("opcao inválida");
+        } else{
+            switch (opcao){
+                case 1:
+                adicionarItemNoCarrinho(cliente,produtos);
+                case 2:
 
+                case 3:
+
+            }
+        }
+    }while (opcao < 0 || opcao > 3);
 }
