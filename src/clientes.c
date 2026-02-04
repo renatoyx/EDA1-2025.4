@@ -2,7 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-#include "include/clientes.h"
+#include "clientes.h"
+#include "utils.h"
 
 Cliente* cadastrarCliente(Cliente *lista){
 

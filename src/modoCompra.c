@@ -2,9 +2,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-#include "include/clientes.h"
-#include "include/produtos.h"
-
+#include "clientes.h"
+#include "produtos.h"
+#include "utils.h"
 
 void chamarModoCompra(Cliente *clientes, Produto *produtos){
 

@@ -2,7 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-#include "include/produtos.h"
+#include "produtos.h"
+#include "utils.h"
 
 Produto* buscarProdutoPorCodigo(Produto *lista, char codigo[]){
 

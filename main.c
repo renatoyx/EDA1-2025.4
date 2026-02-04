@@ -1,5 +1,6 @@
 #include <stdio.h>
-#include "include/clientes.h"
+#include "clientes.h"
+#include "produtos.h"
 
 int main(){
 
@@ -15,9 +16,11 @@ int main(){
         printf("2 - Listar clientes\n");
 
         printf("3 - Cadastrar produto\n");
-        printf("4 - Buscar produto por codigo\n");
+        printf("4 - listar produtos\n");
+        printf("5 - Editar um produto\n");
+        printf("6 - Buscar produto por codigo\n");
 
-        printf("5 - Entrar no modo compra\n");
+        printf("7 - Entrar no modo compra\n");
 
         printf("0 - Sair\n");
 
@@ -39,10 +42,18 @@ int main(){
                 break;
 
             case 4:
-                exibirBuscaPorCodigo(produtos);
+                
                 break;
 
             case 5:
+                chamarModoCompra(clientes, produtos);
+                break;
+
+            case 6:
+                chamarModoCompra(clientes, produtos);
+                break;
+            
+            case 7:
                 chamarModoCompra(clientes, produtos);
                 break;
 

@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-#include "include/utils.h"
+#include "utils.h"
 
 int validarDigitos(char vetorDigito[]) {
     int i, cont = 0;
