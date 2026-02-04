@@ -40,7 +40,7 @@ void adicionarItemNoCarrinho(Cliente *cliente, Produto *listaProduto){
     while (tentarNovamente == 1 && produtoSelecionado == NULL){
 
         printf("Digite o codigo do produto que quer adicionar ao carrinho: ");
-        scanf(" %[^\n]", codigoDigitado);
+        scanf(" %49[^\n]", codigoDigitado);
 
         produtoSelecionado = buscarProdutoPorCodigo(listaProduto, codigoDigitado);
         if (produtoSelecionado == NULL){
@@ -110,7 +110,7 @@ void liberarCarrinho(ItemNoCarrinho *carrinho){
 
 //////////////////////////////////////////////////
 
-void removerItemDoCarrinho(Cliente *cliente){
+void removerItemDoCarrinho(Cliente *cliente, Produto *produto){
 
     if(!cliente->carrinho){
         printf("Carrinho vazio.\n");
@@ -132,6 +132,14 @@ void removerItemDoCarrinho(Cliente *cliente){
     if(!atual){
         printf("Produto nao encontrado no carrinho.\n");
         return;
+    }
+
+    if (produto) {
+        Produto *prodOriginal = buscarProdutoPorCodigo(produto, codigo);
+        if (prodOriginal) {
+            prodOriginal->quantidade = prodOriginal->quantidade + atual->quantidade;
+            printf("Estoque devolvido (+%d).\n", atual->quantidade);
+        }
     }
 
     // reconectar lista
@@ -183,36 +191,35 @@ void listarCarrinho(Cliente *cliente){
 
 void modoCompra(Cliente *cliente, Produto *produtos){
     int opcao = 0;
-    printf("MODO COMPRA\n \n");
-    printf("1. Adicionar item ao carrinho\n");
-    printf("2. Listar itens no carrinho\n");
-    printf("3. Excluir item no carrinho\n\n");
-    printf("0. Sair\n");
-    printf("Selecione uma opcao: ");
-    scanf("%d", &opcao);
-
+    
     do{
-        if (opcao < 0 || opcao > 3){
-            printf("opcao inválida");
-        } else{
-            switch (opcao){
-                case 1:
-                    adicionarItemNoCarrinho(cliente, produtos);
-                    break;
-                case 2:
-                    listarCarrinho(cliente);
-                    break;
-                case 3:
-                    removerItemDoCarrinho(cliente);
-                    break;
-                case 0: 
-                    printf("Saindo do modo compra...\n");
-                    break;
-                default:
+        printf("MODO COMPRA\n \n");
+        printf("1. Adicionar item ao carrinho\n");
+        printf("2. Listar itens no carrinho\n");
+        printf("3. Excluir item no carrinho\n\n");
+        printf("0. Sair\n");
+        printf("Selecione uma opcao: ");
+        scanf("%d", &opcao);
+        limparBuffer();
+
+        switch (opcao){
+            case 1: 
+                adicionarItemNoCarrinho(cliente, produtos); 
+                break;
+            case 2: 
+                listarCarrinho(cliente); 
+                break;
+            case 3: 
+                removerItemDoCarrinho(cliente, produtos); 
+                break;
+            case 0: 
+                printf("Saindo do modo compra...\n"); 
+                break;
+            default: 
                 printf("Opcao invalida.\n");
-            }
         }
-    }while (opcao < 0 || opcao > 3);
+    } while (opcao != 0);
+    
 }
 
 

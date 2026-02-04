@@ -37,7 +37,7 @@ void imprimirCliente(Cliente *cliente);
 void chamarModoCompra(Cliente *clientes, Produto *produtos);
 void modoCompra(Cliente *cliente, Produto *produtos);
 void adicionarItemNoCarrinho(Cliente *cliente, Produto *produtos);
-void removerItemDoCarrinho(Cliente *cliente);
+void removerItemDoCarrinho(Cliente *cliente, Produto *produto);
 void listarCarrinho(Cliente *cliente);
 void liberarCarrinho(ItemNoCarrinho *carrinho);
 

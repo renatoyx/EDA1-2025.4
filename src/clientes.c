@@ -12,14 +12,14 @@ Cliente* cadastrarCliente(Cliente *lista){
         printf("Erro de memoria!\n");
         return lista;
     }
+    novo->carrinho = NULL;
 
     char controleDeCPF[50];
     int cpfValido = 0;
-    novo->carrinho = NULL;
 
     do{
         printf("Digite o CPF (11 digitos): ");
-        scanf(" %s", controleDeCPF);
+        scanf(" %49s", controleDeCPF);
         int tamanhoCpf = strlen(controleDeCPF);
         if(tamanhoCpf != 11 || !validarDigitos(controleDeCPF)){
             printf("CPF invalido!\n");
@@ -32,14 +32,14 @@ Cliente* cadastrarCliente(Cliente *lista){
 
     char nomeAux[100];
     printf("Nome: ");
-    scanf(" %[^\n]", nomeAux);
+    scanf(" %99[^\n]", nomeAux);
 
     novo->nome = malloc(strlen(nomeAux)+1);
     copiaString(novo->nome, nomeAux);
 
     char emailAux[100];
     printf("Email: ");
-    scanf(" %[^\n]", emailAux);
+    scanf(" %99[^\n]", emailAux);
 
     novo->email = malloc(strlen(emailAux)+1);
     copiaString(novo->email, emailAux);
@@ -48,7 +48,7 @@ Cliente* cadastrarCliente(Cliente *lista){
     int telefoneValido = 0;
     do{
         printf("Telefone (Apenas numeros com DDD). Ex: 61998765432: ");
-        scanf(" %s", controleNumeroDeTelefone);
+        scanf(" %49s", controleNumeroDeTelefone);
         int tamanhoTelefoneDigitado = strlen(controleNumeroDeTelefone);
         if(tamanhoTelefoneDigitado > 11 || tamanhoTelefoneDigitado < 10 || !validarDigitos(controleNumeroDeTelefone)){
             printf("Telefone invalido!\n");
@@ -59,13 +59,24 @@ Cliente* cadastrarCliente(Cliente *lista){
         }
     }while(telefoneValido == 0);
     
-    
+    int dia, mes, ano;
+    int dataValidaFlag = 0;
+    do {
+        printf("Nascimento (DD MM AAAA): ");
+        if (scanf("%d %d %d", &dia, &mes, &ano) != 3) {
+             printf("Entrada invalida. Digite apenas numeros.\n");
+             continue;
+        }
 
-    printf("Nascimento (DD MM AAAA): ");
-    scanf("%d %d %d",
-        &novo->nascimento.dia,
-        &novo->nascimento.mes,
-        &novo->nascimento.ano);
+        if (validarDataDeNascimento(dia, mes, ano)) {
+            novo->nascimento.dia = dia;
+            novo->nascimento.mes = mes;
+            novo->nascimento.ano = ano;
+            dataValidaFlag = 1;
+        } else {
+            printf("Data invalida! Verifique dia, mes e ano.\n");
+        }
+    } while (!dataValidaFlag);
 
     novo->prox = lista;
     return novo;
@@ -147,8 +158,13 @@ Cliente* editarCliente(Cliente *lista, char cpf[]){
             scanf(" %[^\n]", aux);
 
             char *temp = realloc(cliente->nome, strlen(aux)+1);
-            cliente->nome = temp;
-            copiaString(cliente->nome, aux);
+            if(temp) {
+                cliente->nome = temp;
+                copiaString(cliente->nome, aux);
+            } else {
+                printf("Erro na memoria.\n");
+                free(temp);
+            }
             break;
         }
 
@@ -158,8 +174,13 @@ Cliente* editarCliente(Cliente *lista, char cpf[]){
             scanf(" %[^\n]", aux);
 
             char *temp = realloc(cliente->email, strlen(aux)+1);
-            cliente->email = temp;
-            copiaString(cliente->email, aux);
+            if(temp) {
+                cliente->email = temp;
+                copiaString(cliente->email, aux);
+            } else {
+                printf("Erro na memoria.\n");
+                free(temp);
+            }
             break;
         }
 

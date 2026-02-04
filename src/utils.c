@@ -37,3 +37,22 @@ char* transformaMinusculo(char *original){
 
     return copia;
 }
+
+int validarDataDeNascimento(int dia, int mes, int ano) {
+    if (ano < 1850 || ano > 2026) return 0;
+    if (mes < 1 || mes > 12) return 0;
+    if (dia < 1 || dia > 31) return 0;
+    if ((mes == 4 || mes == 6 || mes == 9 || mes == 11) && dia > 30) return 0;
+
+    if (mes == 2) {
+        int bissexto = (ano % 4 == 0 && (ano % 100 != 0 || ano % 400 == 0));
+        if (dia > (28 + bissexto)) return 0;
+    }
+
+    return 1;
+}
+
+void limparBuffer() {
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF);
+}

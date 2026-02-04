@@ -31,7 +31,7 @@ Produto* cadastrarProduto(Produto *lista){
     int codigoJaExiste = 0;
     do{
         printf("Codigo do produto: ");
-        scanf(" %s", novo->codigoUnico);
+        scanf(" %49[^\n]", novo->codigoUnico);
         
         if(buscarProdutoPorCodigo(lista, novo->codigoUnico) != NULL){
             printf("Produto com esse código já existe. Tente novamente");
@@ -44,7 +44,7 @@ Produto* cadastrarProduto(Produto *lista){
 
     char nomeAux[100];
     printf("Nome do produto: ");
-    scanf(" %[^\n]", nomeAux);
+    scanf(" %99[^\n]", nomeAux);
 
     novo->nomeProduto = malloc(strlen(nomeAux)+1);
     copiaString(novo->nomeProduto, nomeAux);
@@ -68,9 +68,9 @@ Produto* cadastrarProduto(Produto *lista){
 
 void exibirBuscaPorCodigo(Produto *lista){
 
-    char codigo[20];
+    char codigo[50];
     printf("Codigo: ");
-    scanf(" %s", codigo);
+    scanf(" %49s", codigo);
 
     Produto *p = buscarProdutoPorCodigo(lista, codigo);
 
@@ -89,7 +89,7 @@ void buscarProdutoPorNome(Produto* lista){
 
     char nome[100];
     printf("DIgite o nome do produto para buscar: ");
-    scanf(" %[^\n]", nome);
+    scanf(" %99[^\n]", nome);
 
     char *busca = transformaMinusculo(nome);
 
@@ -98,7 +98,6 @@ void buscarProdutoPorNome(Produto* lista){
     while(lista){
 
         char *temp = transformaMinusculo(lista->nomeProduto);
-        //Revisar para adaptar a tela
         printf("///////////////////////////////\n");
         printf("//     RESULTADO DA BUSCA    //");
         printf("///////////////////////////////\n");
@@ -122,11 +121,38 @@ void buscarProdutoPorNome(Produto* lista){
 
 //////////////////////////////////////////////////
 
+void listarProdutos(Produto *lista){
+    if(!lista){
+        printf("Nenhum produto cadastrado.\n");
+        return;
+    }
+
+    Produto *aux = lista;
+
+    while(aux){
+        imprimirProdutos(aux);
+        aux = aux->prox;
+    }
+}
+
+void imprimirProdutos(Produto *lista){
+
+    if(!lista) return;
+
+    
+    
+    printf("|------------------------|------------------------------------------------------|--------------------------|------------------------|\n");
+    printf("| %-22s | %-52s | R$ %-21.2f | %-22d |\n",lista->codigoUnico,lista->nomeProduto, lista->preco,lista->quantidade);
+    printf("|------------------------|------------------------------------------------------|--------------------------|------------------------|\n");
+}
+
+//////////////////////////////////////////////////
+
 void editarProduto(Produto *lista){
 
-    char codigo[20];
+    char codigo[50];
     printf("Codigo do produto: ");
-    scanf(" %s", codigo);
+    scanf(" %49s", codigo);
 
     Produto *p = buscarProdutoPorCodigo(lista, codigo);
 
@@ -144,7 +170,7 @@ void editarProduto(Produto *lista){
     case 1:{
         char aux[100];
         printf("Novo nome: ");
-        scanf(" %[^\n]", aux);
+        scanf(" %99[^\n]", aux);
 
         char *temp = realloc(p->nomeProduto, strlen(aux)+1);
         p->nomeProduto = temp;
