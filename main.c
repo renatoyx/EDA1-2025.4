@@ -13,7 +13,7 @@ int main(){
     char cpfAux[15]; 
 
     do{
-        printf("\n------- SISTEMA ----------n");
+        printf("\n------- SISTEMA ----------\n");
         printf("1 - Cadastrar cliente\n");
         printf("2 - Listar clientes\n");
         printf("3 - Buscar cliente por CPF\n");
