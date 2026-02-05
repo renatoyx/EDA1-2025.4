@@ -98,14 +98,11 @@ void buscarProdutoPorNome(Produto* lista){
     while(lista){
 
         char *temp = transformaMinusculo(lista->nomeProduto);
-        printf("///////////////////////////////\n");
-        printf("//     RESULTADO DA BUSCA    //");
-        printf("///////////////////////////////\n");
+
         if(temp && strstr(temp, busca)){
-            printf("-------------------------------\n");
-            printf("|  CODIGO  |  NOME  |  PRECO  |\n");
-            printf("|  %s      |  %s    | R$ %.2f |\n",lista->codigoUnico,lista->nomeProduto, lista->preco);
-            printf("-------------------------------\n");
+               
+            printf("\nCodigo do produto: %s\nPreco: %.2f\nEstoque: %d\n",lista->codigoUnico,lista->preco, lista->quantidade);
+                
             achou = 1;
         }
 
@@ -138,12 +135,8 @@ void listarProdutos(Produto *lista){
 void imprimirProdutos(Produto *lista){
 
     if(!lista) return;
-
-    
-    
-    printf("|------------------------|------------------------------------------------------|--------------------------|------------------------|\n");
-    printf("| %-22s | %-52s | R$ %-21.2f | %-22d |\n",lista->codigoUnico,lista->nomeProduto, lista->preco,lista->quantidade);
-    printf("|------------------------|------------------------------------------------------|--------------------------|------------------------|\n");
+    printf("--------------------------\n");
+    printf("\nNome do Produto: %s\nCodigo do produto: %s\nPreco: %.2f\nEstoque: %d\n",lista->nomeProduto, lista->codigoUnico,lista->preco, lista->quantidade);
 }
 
 //////////////////////////////////////////////////

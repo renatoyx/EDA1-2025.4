@@ -15,7 +15,7 @@ int validarDigitos(char vetorDigito[]) {
     return 1;
 }
 
-void copiaString(char *dest, const char *orig) {
+void copiaString(char *dest, char *orig) {
     if (*orig == '\0') {
         *dest = '\0';
         return;

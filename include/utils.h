@@ -7,7 +7,7 @@ typedef struct Data{
     int ano;
 }Data;
 
-void copiaString(char *dest, const char *orig);
+void copiaString(char *dest, char *orig);
 int validarDigitos(char vetorDigito[]);
 char* transformaMinusculo(char *original);
 int validarDataDeNascimento(int dia, int mes, int ano);

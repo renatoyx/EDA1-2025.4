@@ -13,15 +13,12 @@ int main(){
 
         printf("\n========== SISTEMA ==========\n");
         printf("1 - Cadastrar cliente\n");
-        printf("2 - Listar clientes\n\n");
-
+        printf("2 - Listar clientes\n");
         printf("3 - Cadastrar produto\n");
         printf("4 - listar produtos\n");
         printf("5 - Editar um produto\n");
-        printf("6 - Buscar produto por codigo\n\n");
-
-        printf("7 - Entrar no modo compra\n\n");
-
+        printf("6 - Buscar produto por codigo\n");
+        printf("7 - Entrar no modo compra\n");
         printf("0 - Sair\n");
 
         printf("Escolha: ");
@@ -43,9 +40,6 @@ int main(){
                 break;
 
             case 4:
-                printf("-------------------------------------------------------------------------------------------------------------------------------------\n");
-                printf("| %-22s | %-52s | %-24s | %-22s |\n","CODIGO","NOME","PRECO","ESTOQUE");
-                
                 listarProdutos(produtos);
                 break;
 
