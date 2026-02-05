@@ -29,15 +29,7 @@ Este projeto consiste em um sistema completo de gerenciamento de loja via linha 
 - **Lista dentro de Lista:** Cada cliente possui sua própria lista encadeada de itens no carrinho.
 
 ---
-# 💻 Como Compilar
 
-gcc main.c src/*.c -I include -Wall -Wextra -o prog
-
-# Executar
-./prog #LINUX
-./prog.exe # WINDOWS
-
----
 ## 📂 Estrutura de Arquivos
 
 ```text
@@ -56,3 +48,16 @@ PROJETO/
     ├── produtos.c      # Lógica do CRUD de Produtos
     ├── modoCompra.c    # Lógica do Carrinho e Vendas
     └── utils.c         # Implementação das ferramentas auxiliares
+```
+---
+
+# 💻 Como Compilar
+```Bash
+gcc main.c src/*.c -I include -Wall -Wextra -o prog
+```
+
+# Executar
+```Bash
+./prog #LINUX
+./prog.exe # WINDOWS
+```
