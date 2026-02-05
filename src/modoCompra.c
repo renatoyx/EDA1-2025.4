@@ -61,8 +61,8 @@ void adicionarItemNoCarrinho(Cliente *cliente, Produto *listaProduto){
 
     int quantidadeSelecionada;
     do{
-        printf("Quantidade em estoque: %d", produtoSelecionado->quantidade);
-        printf("Quantas unidade de '%s'?", produtoSelecionado->nomeProduto);
+        printf("Quantidade em estoque: %d\n", produtoSelecionado->quantidade);
+        printf("Quantas unidade de '%s'?\n", produtoSelecionado->nomeProduto);
         scanf("%d", &quantidadeSelecionada);
 
         if (quantidadeSelecionada > produtoSelecionado->quantidade || quantidadeSelecionada <= 0){
